@@ -1,21 +1,11 @@
 using System.Numerics;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
 
 // add custom logging
 var loggerFactory = app.Services.GetService<ILoggerFactory>();
 loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.MapGet("/track", (string trackingId) => Results.Redirect(GetTrackingURL(trackingId)));
 app.MapGet("/", () => "Tracking Number Not Found.");
