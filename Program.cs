@@ -28,7 +28,7 @@ string GetTrackingURL(string trackingId)
         {
             URL = $"http://wwwapps.ups.com/WebTracking/processInputRequest?tracknum={trackingId}&AgreeToTermsAndConditions=yes";
         }
-        else if (BigInteger.TryParse(trackingId, out _) && new List<int>(new[] { 10, 12, 15, 34, 20, 22 }).Contains(trackingId.Length) && new List<int>(new[] { 27, 96, 39, 64, 56, 78 }).Contains(Int32.Parse(trackingId.Substring(0, 2))))
+        else if (BigInteger.TryParse(trackingId, out _) && new List<int>(new[] { 10, 12, 15, 34, 20, 22 }).Contains(trackingId.Length))
         {
             URL = $"https://fedex.com/fedextrack/?tracknumbers={trackingId}";
         }
