@@ -29,8 +29,6 @@ To meet the logic for a FedEx tracking number, it needs to contain ALL of the fo
 
 * 10,12,15,20,22, or 34 characters in length
 
-* Starts with 27, 96, 39, 64, 56, or 78
-
 #### USPS
 
 Meeting the USPS tracking number logic requires the following:
