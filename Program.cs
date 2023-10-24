@@ -14,7 +14,7 @@ string GetTrackingURL(string trackingId)
     string URL = string.Empty;
     try
     {
-        if (trackingId.StartsWith("1Z") || trackingId.Length == 9 || trackingId.StartsWith("K") || trackingId.StartsWith("H"))
+        if (trackingId.ToUpper().StartsWith("1Z") || trackingId.Length == 9 || trackingId.ToUpper().StartsWith("K") || trackingId.ToUpper().StartsWith("H"))
         {
             URL = $"http://wwwapps.ups.com/WebTracking/processInputRequest?tracknum={trackingId}&AgreeToTermsAndConditions=yes";
         }
@@ -22,7 +22,7 @@ string GetTrackingURL(string trackingId)
         {
             URL = $"https://fedex.com/fedextrack/?tracknumbers={trackingId}";
         }
-        else if (BigInteger.TryParse(trackingId, out _) && trackingId.Length == 22 && trackingId.StartsWith("94") || trackingId.EndsWith("US"))
+        else if (BigInteger.TryParse(trackingId, out _) && trackingId.Length == 22 && trackingId.StartsWith("94") || trackingId.ToUpper().EndsWith("US"))
         {
             URL = $"http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?origTrackNum={trackingId}";
         }
