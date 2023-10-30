@@ -12,6 +12,7 @@ app.MapGet("/", () => "Tracking Number Not Found.");
 string GetTrackingURL(string trackingId)
 {
     string URL = string.Empty;
+    trackingId = trackingId.Replace("-", "").Replace(" ", "").Trim();
     try
     {
         if (trackingId.ToUpper().StartsWith("1Z") || trackingId.Length == 9 || trackingId.ToUpper().StartsWith("K") || trackingId.ToUpper().StartsWith("H"))
