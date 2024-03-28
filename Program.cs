@@ -4,8 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 // add custom logging
-var loggerFactory = app.Services.GetService<ILoggerFactory>();
-loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
+ILogger logger = app.Services
+                       .GetService<ILoggerFactory>()
+                       .AddFile(builder.Configuration["Logging:LogFilePath"].ToString())
+                       .CreateLogger<Program>();
 
 app.UseStatusCodePages(async statusCodeContext 
     => await Results.Problem(statusCode: statusCodeContext.HttpContext.Response.StatusCode)
@@ -39,9 +41,9 @@ string GetTrackingURL(string trackingId)
     }
     catch (Exception ex)
     {
-        app.Logger.LogError(ex.Message);
+        logger.LogError(ex, $"Error when parsing trackingId {trackingId}");
     }
-    app.Logger.LogInformation($"{trackingId} -> {URL}");
+    logger.LogInformation($"{trackingId} -> {URL}");
     return URL;
 }
 
