@@ -7,8 +7,12 @@ var app = builder.Build();
 var loggerFactory = app.Services.GetService<ILoggerFactory>();
 loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
 
-app.MapGet("/track", (string trackingId) => Results.Redirect(GetTrackingURL(trackingId)));
-app.MapGet("/", () => "Tracking Number Not Found.");
+app.UseStatusCodePages(async statusCodeContext 
+    => await Results.Problem(statusCode: statusCodeContext.HttpContext.Response.StatusCode)
+                 .ExecuteAsync(statusCodeContext.HttpContext));
+
+app.MapGet("/track", (string? trackingId) => string.IsNullOrEmpty(trackingId) ? Results.BadRequest() : Results.Redirect(GetTrackingURL(trackingId)));
+app.MapGet("/notfound", (string? trackingId) => $"Unable to parse tracking number {trackingId} \n\nPlease enter a helpdesk ticket.");
 string GetTrackingURL(string trackingId)
 {
     string URL = string.Empty;
@@ -29,7 +33,7 @@ string GetTrackingURL(string trackingId)
         }
         else
         {
-            URL = "/";
+            URL = $"/notfound?trackingId={trackingId}";
         }
 
     }
@@ -37,6 +41,7 @@ string GetTrackingURL(string trackingId)
     {
         app.Logger.LogError(ex.Message);
     }
+    app.Logger.LogInformation($"{trackingId} -> {URL}");
     return URL;
 }
 
