@@ -47,6 +47,6 @@ If none of the above requirements are met, it will redirect to the root director
 
 ## Logging
 
-The API will log basic startup/shutdown messages and critical errors to the application. The log path (below) used by the application is stored in the appsettings.json file, which is located where the application is running from.
+The API will log basic startup/shutdown messages and critical errors to the application. Also logs all tracking numbers put through it. The log path (below) used by the application is stored in the appsettings.json file, which is located where the application is running from.
 
 Log file: `multitrack-log-{date}.txt`
