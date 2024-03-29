@@ -55,7 +55,7 @@ try
 } catch (Exception ex)
 {
 
-    app.Logger.LogCritical(ex.Message);
+    logger.LogCritical(ex, "Application startup error");
 
 } finally
 {
