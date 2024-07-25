@@ -23,7 +23,7 @@ string GetTrackingURL(string trackingId)
     {
         if (trackingId.ToUpper().StartsWith("1Z") || trackingId.Length == 9 || trackingId.ToUpper().StartsWith("K") || trackingId.ToUpper().StartsWith("H"))
         {
-            URL = $"http://wwwapps.ups.com/WebTracking/processInputRequest?tracknum={trackingId}&AgreeToTermsAndConditions=yes";
+            URL = $"https://www.ups.com/track?tracknum={trackingId}&AgreeToTermsAndConditions=yes&loc=en_US";
         }
         else if (BigInteger.TryParse(trackingId, out _) && new List<int>(new[] { 10, 12, 15, 34, 20, 22 }).Contains(trackingId.Length))
         {
