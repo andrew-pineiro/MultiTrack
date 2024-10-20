@@ -6,7 +6,7 @@ var app = builder.Build();
 // add custom logging
 ILogger logger = app.Services
                        .GetService<ILoggerFactory>()
-                       .AddFile(builder.Configuration["Logging:LogFilePath"].ToString())
+                       .AddFile(builder.Configuration["LogFilePath"].ToString())
                        .CreateLogger<Program>();
 
 app.UseStatusCodePages(async statusCodeContext 
